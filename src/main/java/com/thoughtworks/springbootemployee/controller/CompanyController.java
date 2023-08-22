@@ -49,4 +49,10 @@ public class CompanyController {
         return existingCompany;
     }
 
+    @PutMapping("/deleteCompanies/{id}")
+    public String deleteCompany(@PathVariable Long id) {
+        companyRepository.deleteCompany(id);
+        return "Company " + id + " has been deleted.";
+    }
+
 }

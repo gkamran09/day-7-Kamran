@@ -54,5 +54,9 @@ public class CompanyRepository {
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
+
+    public void deleteCompany(Long id) {
+        companies.removeIf(company -> company.getCompanyId().equals(id));
+    }
 }
 
