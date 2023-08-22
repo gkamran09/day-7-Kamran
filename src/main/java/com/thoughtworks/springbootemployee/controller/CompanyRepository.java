@@ -47,5 +47,12 @@ public class CompanyRepository {
                     .max()
                     .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
+
+    public Company findById(Long id) {
+        return companies.stream()
+                .filter(employee -> employee.getCompanyId().equals(id))
+                .findFirst()
+                .orElseThrow(EmployeeNotFoundException::new);
+    }
 }
 
