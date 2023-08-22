@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.controller;
 
+import org.springframework.expression.spel.ast.Literal;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,8 @@ public class EmployeeRepository {
     private static final List<Employee> employees = new ArrayList<>();
 
     static{
-        employees.add(new Employee(1L,"Gerard",30,"Male",99999));
-        employees.add(new Employee(2L,"Kamran",30,"Male",99239));
+        employees.add(new Employee(1L,"Gerard",30,"male",99999));
+        employees.add(new Employee(2L,"Kamran",30,"female",99239));
     }
 
     public List<Employee> listAll() {
@@ -35,4 +36,8 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
+    public Employee addEmployee(Employee employee){
+
+        return employee;
+    }
 }

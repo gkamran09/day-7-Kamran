@@ -13,6 +13,8 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    private static final List<Employee> employees = new ArrayList<>();
+
     @GetMapping
     public List<Employee> listAll(){
         return employeeRepository.listAll();
@@ -23,10 +25,14 @@ public class EmployeeController {
         return employeeRepository.findById(id);
     }
 
-    @GetMapping(params = "{gender}")
-    public List<Employee> findByGender(@PathVariable String gender){
+    @GetMapping(params = {"gender"})
+    public List<Employee> findByGender(@RequestParam String gender){
         return employeeRepository.findByGender(gender);
     }
 
-
+    @PostMapping("/addEmployee")
+    public Employee addEmployee(@RequestBody Employee employee){
+        employees.add(employee);
+        return employee;
+    }
 }
