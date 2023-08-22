@@ -14,6 +14,7 @@ public class CompanyController {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired EmployeeRepository employeeRepository;
 
     @GetMapping
     public List<Company> listAll() {
@@ -24,4 +25,9 @@ public class CompanyController {
     public Company findById(@PathVariable Long id){
         return companyRepository.findCompanyById(id);
     }
+    @GetMapping("/{id}/employees")
+    public List<Employee>getEmployeeByCompanyId(@PathVariable Long id){
+        return employeeRepository.findEmployeeByCompanyId(id);
+    }
+
 }

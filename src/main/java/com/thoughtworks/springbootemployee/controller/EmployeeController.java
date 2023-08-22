@@ -51,6 +51,7 @@ public class EmployeeController {
         existingEmployee.setEmployeeAge(updatedEmployee.getEmployeeAge());
         existingEmployee.setEmployeeGender(updatedEmployee.getEmployeeGender());
         existingEmployee.setEmployeeSalary(updatedEmployee.getEmployeeSalary());
+        existingEmployee.setCompanyId(updatedEmployee.getCompanyId());
 
         return existingEmployee;
     }

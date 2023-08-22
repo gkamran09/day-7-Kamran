@@ -14,12 +14,12 @@ public class EmployeeRepository {
     private static final long START_ID_MINUS_ONE = 0L;
 
     static{
-        employees.add(new Employee(1L,"Gerard",30,"male",99999));
-        employees.add(new Employee(2L,"Kamran",30,"female",99239));
-        employees.add(new Employee(3L,"Aubs",30,"female",99239));
-        employees.add(new Employee(4L,"Juliet",30,"female",99239));
-        employees.add(new Employee(5L,"Linne",30,"female",99239));
-        employees.add(new Employee(6L,"Ying",30,"male",99239));
+        employees.add(new Employee(1L,"Gerard",30,"male",99999, 1L));
+        employees.add(new Employee(2L,"Kamran",30,"female",99239, 1L));
+        employees.add(new Employee(3L,"Aubs",30,"female",99239, 1L));
+        employees.add(new Employee(4L,"Juliet",30,"female",99239, 2L));
+        employees.add(new Employee(5L,"Linne",30,"female",99239, 2L));
+        employees.add(new Employee(6L,"Ying",30,"male",99239, 2L));
     }
 
     public List<Employee> listAll() {
@@ -42,7 +42,7 @@ public class EmployeeRepository {
     public Employee saveEmployee(Employee employee) {
         Long id = generateNextId();
 
-        Employee employeeToBeCreated = new Employee(id, employee.getEmployeeName(), employee.getEmployeeAge(), employee.getEmployeeGender(), employee.getEmployeeSalary());
+        Employee employeeToBeCreated = new Employee(id, employee.getEmployeeName(), employee.getEmployeeAge(), employee.getEmployeeGender(), employee.getEmployeeSalary(), employee.getCompanyId());
         employees.add(employeeToBeCreated);
 
         return employeeToBeCreated;
@@ -65,4 +65,11 @@ public class EmployeeRepository {
     public void deleteEmployee(Long id) {
         employees.removeIf(employee -> employee.getEmployeeId().equals(id));
     }
+
+    public List<Employee> findEmployeeByCompanyId(Long companyId) {
+        return employees.stream()
+                .filter(employee -> employee.getCompanyId().equals(companyId))
+                .collect(Collectors.toList());
+    }
 }
+
