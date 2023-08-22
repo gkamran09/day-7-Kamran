@@ -64,4 +64,8 @@ public class EmployeeRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public void deleteEmployee(Long id) {
+        employees.removeIf(employee -> employee.getId().equals(id));
+    }
 }

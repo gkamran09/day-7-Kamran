@@ -55,4 +55,10 @@ public class EmployeeController {
         return existingEmployee;
     }
 
+    @PutMapping("/deleteEmployees/{id}")
+    public String deleteEmployee(@PathVariable Long id) {
+         employeeRepository.deleteEmployee(id);
+         return "Employee " + id + " has been deleted.";
+    }
+
 }
