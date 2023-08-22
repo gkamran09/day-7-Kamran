@@ -15,39 +15,39 @@ public class Employee {
         this.salary = salary;
     }
 
-    public Long getId() {
+    public Long getEmployeeId() {
         return id;
     }
 
-    public String getName() {
+    public String getEmployeeName() {
         return name;
     }
 
-    public Integer getAge() {
+    public Integer getEmployeeAge() {
         return age;
     }
 
-    public String getGender() {
+    public String getEmployeeGender() {
         return gender;
     }
 
-    public Integer getSalary() {
+    public Integer getEmployeeSalary() {
         return salary;
     }
 
-    public void setName(String name) {
+    public void setEmployeeName(String name) {
         this.name = name;
     }
 
-    public void setAge(Integer age) {
+    public void setEmployeeAge(Integer age) {
         this.age = age;
     }
 
-    public void setGender(String gender) {
+    public void setEmployeeGender(String gender) {
         this.gender = gender;
     }
 
-    public void setSalary(Integer salary) {
+    public void setEmployeeSalary(Integer salary) {
         this.salary = salary;
     }
 

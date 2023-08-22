@@ -47,10 +47,10 @@ public class EmployeeController {
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
         Employee existingEmployee = employeeRepository.findById(id);
 
-        existingEmployee.setName(updatedEmployee.getName());
-        existingEmployee.setAge(updatedEmployee.getAge());
-        existingEmployee.setGender(updatedEmployee.getGender());
-        existingEmployee.setSalary(updatedEmployee.getSalary());
+        existingEmployee.setEmployeeName(updatedEmployee.getEmployeeName());
+        existingEmployee.setEmployeeAge(updatedEmployee.getEmployeeAge());
+        existingEmployee.setEmployeeGender(updatedEmployee.getEmployeeGender());
+        existingEmployee.setEmployeeSalary(updatedEmployee.getEmployeeSalary());
 
         return existingEmployee;
     }

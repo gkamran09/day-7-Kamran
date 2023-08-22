@@ -1,12 +1,9 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import org.springframework.expression.spel.ast.Literal;
-import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -31,21 +28,21 @@ public class EmployeeRepository {
 
     public Employee findById(Long id) {
         return employees.stream()
-                .filter(employee -> employee.getId().equals(id))
+                .filter(employee -> employee.getEmployeeId().equals(id))
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
     public List<Employee> findByGender(String gender) {
         return employees.stream()
-                .filter(employee -> employee.getGender().equals(gender))
+                .filter(employee -> employee.getEmployeeGender().equals(gender))
                 .collect(Collectors.toList());
     }
 
     public Employee saveEmployee(Employee employee) {
         Long id = generateNextId();
 
-        Employee employeeToBeCreated = new Employee(id, employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
+        Employee employeeToBeCreated = new Employee(id, employee.getEmployeeName(), employee.getEmployeeAge(), employee.getEmployeeGender(), employee.getEmployeeSalary());
         employees.add(employeeToBeCreated);
 
         return employeeToBeCreated;
@@ -53,7 +50,7 @@ public class EmployeeRepository {
 
     private Long generateNextId() {
         return employees.stream()
-                .mapToLong(Employee::getId)
+                .mapToLong(Employee::getEmployeeId)
                 .max()
                 .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
@@ -66,6 +63,6 @@ public class EmployeeRepository {
     }
 
     public void deleteEmployee(Long id) {
-        employees.removeIf(employee -> employee.getId().equals(id));
+        employees.removeIf(employee -> employee.getEmployeeId().equals(id));
     }
 }
