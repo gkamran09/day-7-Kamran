@@ -16,6 +16,7 @@ public class CompanyRepository {
     static {
         companies.add(new Company(1L, "Company A"));
         companies.add(new Company(2L, "Company B"));
+        companies.add(new Company(3L, "Company C"));
     }
     public List<Company> listAll() {
         return companies;
@@ -28,7 +29,7 @@ public class CompanyRepository {
                     .orElseThrow(CompanyNotFoundException::new);
     }
 
-    public List<Company> listByPage(Long pageNumber, Long pageSize) {
+    public List<Company> listCompanyByPage(Long pageNumber, Long pageSize) {
         return companies.stream()
                 .skip((pageNumber - 1) * pageSize)
                 .limit(pageSize)
@@ -36,25 +37,17 @@ public class CompanyRepository {
     }
 
     public Company saveCompany(Company company) {
-        company.setId(generateNextId());
+        company.setCompanyId(generateNextCompanyId());
         companies.add(company);
         return company;
     }
 
-    private Long generateNextId() {
+    private Long generateNextCompanyId() {
             return companies.stream()
                     .mapToLong(Company::getCompanyId)
                     .max()
                     .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
     }
-
-    public Company findById(Long id) {
-        return companies.stream()
-                .filter(employee -> employee.getCompanyId().equals(id))
-                .findFirst()
-                .orElseThrow(EmployeeNotFoundException::new);
-    }
-
     public void deleteCompany(Long id) {
         companies.removeIf(company -> company.getCompanyId().equals(id));
     }

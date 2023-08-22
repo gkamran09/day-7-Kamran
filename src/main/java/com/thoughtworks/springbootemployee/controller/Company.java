@@ -2,25 +2,25 @@ package com.thoughtworks.springbootemployee.controller;
 
 public class Company {
 
-    private Long id;
-    private String name;
+    private Long companyId;
+    private String companyName;
 
 
-    public Company(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public Company(Long companyId, String companyName) {
+        this.companyId = companyId;
+        this.companyName = companyName;
     }
     public Long getCompanyId() {
-        return id;
+        return companyId;
     }
     public String getCompanyName() {
-        return name;
+        return companyName;
     }
     public void setCompanyName(String companyName) {
-        this.name = companyName;
+        this.companyName = companyName;
     }
-    public void setId(Long id){
-        this.id = id;
+    public void setCompanyId(Long companyId){
+        this.companyId = companyId;
     }
 
 }

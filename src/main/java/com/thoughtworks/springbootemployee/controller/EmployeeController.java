@@ -17,18 +17,18 @@ public class EmployeeController {
     private static final List<Employee> employees = new ArrayList<>();
 
     @GetMapping
-    public List<Employee> listAll(){
+    public List<Employee> listAllEmployees(){
         return employeeRepository.listAll();
     }
 
     @GetMapping("/{id}")
-    public Employee findById(@PathVariable Long id){
-        return employeeRepository.findById(id);
+    public Employee findEmployeeById(@PathVariable Long id){
+        return employeeRepository.findEmployeeById(id);
     }
 
     @GetMapping(params = {"gender"})
-    public List<Employee> findByGender(@RequestParam String gender){
-        return employeeRepository.findByGender(gender);
+    public List<Employee> findEmployeeByGender(@RequestParam String gender){
+        return employeeRepository.findEmployeeByGender(gender);
     }
 
     @PostMapping("/addEmployee")
@@ -39,13 +39,13 @@ public class EmployeeController {
 
 
     @GetMapping(params = {"pageNumber","pageSize"})
-    public List<Employee>listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize){
+    public List<Employee> listEmployeeByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize){
         return employeeRepository.listByPage(pageNumber,pageSize);
     }
 
     @PutMapping("/updateEmployees/{id}")
     public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
-        Employee existingEmployee = employeeRepository.findById(id);
+        Employee existingEmployee = employeeRepository.findEmployeeById(id);
 
         existingEmployee.setEmployeeName(updatedEmployee.getEmployeeName());
         existingEmployee.setEmployeeAge(updatedEmployee.getEmployeeAge());

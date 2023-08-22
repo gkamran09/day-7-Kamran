@@ -2,18 +2,18 @@ package com.thoughtworks.springbootemployee.controller;
 
 public class Employee {
     private Long id;
-    private String name;
-    private Integer age;
-    private String gender;
-    private Integer salary;
+    private String employeeName;
+    private Integer employeeAge;
+    private String employeeGender;
+    private Integer employeeSalary;
     private Long companyId;
 
     public Employee(Long id, String name, Integer age, String gender, Integer salary, Long companyId) {
         this.id = id;
-        this.name = name;
-        this.age = age;
-        this.gender = gender;
-        this.salary = salary;
+        this.employeeName = name;
+        this.employeeAge = age;
+        this.employeeGender = gender;
+        this.employeeSalary = salary;
         this.companyId = companyId;
     }
 
@@ -22,38 +22,38 @@ public class Employee {
     }
 
     public String getEmployeeName() {
-        return name;
+        return employeeName;
     }
 
     public Integer getEmployeeAge() {
-        return age;
+        return employeeAge;
     }
 
     public String getEmployeeGender() {
-        return gender;
+        return employeeGender;
     }
 
     public Integer getEmployeeSalary() {
-        return salary;
+        return employeeSalary;
     }
 
     public Long getCompanyId() {
         return companyId;
     }
     public void setEmployeeName(String name) {
-        this.name = name;
+        this.employeeName = name;
     }
 
     public void setEmployeeAge(Integer age) {
-        this.age = age;
+        this.employeeAge = age;
     }
 
     public void setEmployeeGender(String gender) {
-        this.gender = gender;
+        this.employeeGender = gender;
     }
 
     public void setEmployeeSalary(Integer salary) {
-        this.salary = salary;
+        this.employeeSalary = salary;
     }
 
     public void setCompanyId(Long companyId) {

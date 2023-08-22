@@ -15,12 +15,12 @@ public class CompanyController {
     @Autowired EmployeeRepository employeeRepository;
 
     @GetMapping
-    public List<Company> listAll() {
+    public List<Company> listAllCompanies() {
         return companyRepository.listAll();
     }
 
     @GetMapping("/{id}")
-    public Company findById(@PathVariable Long id){
+    public Company findCompaniesById(@PathVariable Long id){
         return companyRepository.findCompanyById(id);
     }
     @GetMapping("/{id}/employees")
@@ -29,8 +29,8 @@ public class CompanyController {
     }
 
     @GetMapping(params = {"pageNumber","pageSize"})
-    public List<Company>listByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize){
-        return companyRepository.listByPage(pageNumber,pageSize);
+    public List<Company> listCompaniesByPage(@RequestParam Long pageNumber, @RequestParam Long pageSize){
+        return companyRepository.listCompanyByPage(pageNumber,pageSize);
     }
 
 
@@ -42,7 +42,7 @@ public class CompanyController {
 
     @PutMapping("/updateCompanies/{id}")
     public Company updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
-        Company existingCompany = companyRepository.findById(id);
+        Company existingCompany = companyRepository.findCompanyById(id);
 
         existingCompany.setCompanyName(updatedCompany.getCompanyName());
 

@@ -26,14 +26,14 @@ public class EmployeeRepository {
         return employees;
     }
 
-    public Employee findById(Long id) {
+    public Employee findEmployeeById(Long id) {
         return employees.stream()
                 .filter(employee -> employee.getEmployeeId().equals(id))
                 .findFirst()
                 .orElseThrow(EmployeeNotFoundException::new);
     }
 
-    public List<Employee> findByGender(String gender) {
+    public List<Employee> findEmployeeByGender(String gender) {
         return employees.stream()
                 .filter(employee -> employee.getEmployeeGender().equals(gender))
                 .collect(Collectors.toList());
