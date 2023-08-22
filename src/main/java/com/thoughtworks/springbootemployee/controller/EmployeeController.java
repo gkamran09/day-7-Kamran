@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/addEmployee")
+    @ResponseStatus(value = HttpStatus.CREATED)
     public Employee createEmployee (@RequestBody Employee employee){
         return employeeRepository.saveEmployee(employee);
     }
