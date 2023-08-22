@@ -12,4 +12,7 @@ public class Company {
     public Long getCompanyId() {
         return id;
     }
+    public String getCompanyName() {
+        return name;
+    }
 }
