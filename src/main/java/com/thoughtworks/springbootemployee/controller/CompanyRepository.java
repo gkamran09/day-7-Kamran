@@ -27,9 +27,10 @@ public class CompanyRepository {
                     .orElseThrow(CompanyNotFoundException::new);
     }
 
-//    public List<Employee>findEmployeeByCompanyId(Long companyId){
-//        return employees.stream()
-//                .filter(employee -> employee.getCompanyId().equals(companyId))
-//                .collect(Collectors.toList());
-//    }
+    public List<Company> listByPage(Long pageNumber, Long pageSize) {
+        return companies.stream()
+                .skip((pageNumber - 1) * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+    }
 }
