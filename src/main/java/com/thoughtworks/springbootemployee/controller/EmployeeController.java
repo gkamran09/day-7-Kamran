@@ -55,7 +55,7 @@ public class EmployeeController {
 
         return existingEmployee;
     }
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/deleteEmployees/{id}")
     public String deleteEmployee(@PathVariable Long id) {
          employeeRepository.deleteEmployee(id);

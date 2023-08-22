@@ -48,7 +48,7 @@ public class CompanyController {
 
         return existingCompany;
     }
-
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping ("/deleteCompanies/{id}")
     public String deleteCompany(@PathVariable Long id) {
         companyRepository.deleteCompany(id);
