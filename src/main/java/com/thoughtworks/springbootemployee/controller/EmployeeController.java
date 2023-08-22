@@ -43,4 +43,16 @@ public class EmployeeController {
         return employeeRepository.listByPage(pageNumber,pageSize);
     }
 
+    @PutMapping("/updateEmployees/{id}")
+    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
+        Employee existingEmployee = employeeRepository.findById(id);
+
+        existingEmployee.setName(updatedEmployee.getName());
+        existingEmployee.setAge(updatedEmployee.getAge());
+        existingEmployee.setGender(updatedEmployee.getGender());
+        existingEmployee.setSalary(updatedEmployee.getSalary());
+
+        return existingEmployee;
+    }
+
 }
