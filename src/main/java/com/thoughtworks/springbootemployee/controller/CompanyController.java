@@ -19,4 +19,9 @@ public class CompanyController {
     public List<Company> listAll() {
         return companyRepository.listAll();
     }
+
+    @GetMapping("/{id}")
+    public Company findById(@PathVariable Long id){
+        return companyRepository.findCompanyById(id);
+    }
 }

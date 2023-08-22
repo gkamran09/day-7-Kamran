@@ -17,4 +17,10 @@ public class CompanyRepository {
         return companies;
     }
 
+    public Company findCompanyById(Long id) {
+            return companies.stream()
+                    .filter(company -> company.getCompanyId().equals(id))
+                    .findFirst()
+                    .orElseThrow(CompanyNotFoundException::new);
+    }
 }
