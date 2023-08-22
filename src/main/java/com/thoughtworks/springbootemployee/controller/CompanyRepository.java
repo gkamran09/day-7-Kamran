@@ -10,7 +10,8 @@ import java.util.stream.Collectors;
 public class CompanyRepository {
 
     private static final List<Company> companies = new ArrayList<>();
-    private List<Employee> employees = new ArrayList<>();
+    private static final long ID_INCREMENT = 1 ;
+    private static final long START_ID_MINUS_ONE = 0L;
 
     static {
         companies.add(new Company(1L, "Company A"));
@@ -33,4 +34,18 @@ public class CompanyRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public Company saveCompany(Company company) {
+        company.setId(generateNextId());
+        companies.add(company);
+        return company;
+    }
+
+    private Long generateNextId() {
+            return companies.stream()
+                    .mapToLong(Company::getCompanyId)
+                    .max()
+                    .orElse(START_ID_MINUS_ONE) + ID_INCREMENT;
+    }
 }
+

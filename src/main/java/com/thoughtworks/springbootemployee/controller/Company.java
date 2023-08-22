@@ -1,8 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Company {
 
     private Long id;
@@ -18,6 +15,12 @@ public class Company {
     }
     public String getCompanyName() {
         return name;
+    }
+    public void setCompanyName(String companyName) {
+        this.name = companyName;
+    }
+    public void setId(Long id){
+        this.id = id;
     }
 
 }
