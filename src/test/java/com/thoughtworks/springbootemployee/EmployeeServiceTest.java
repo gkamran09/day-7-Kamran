@@ -201,4 +201,18 @@ public class EmployeeServiceTest {
         assertEquals(expectedEmployees.size(), actualEmployees.size());
 
     }
+
+    @Test
+    void should_create_employee_when_create_given_valid_employee() {
+        // Arrange
+        Employee newEmployee = new Employee(1L, "Alice", 24, "Female", 9000, 1L);
+        when(mockedEmployeeRepository.saveEmployee(newEmployee)).thenReturn(newEmployee);
+
+        // Act
+        Employee createdEmployee = employeeService.create(newEmployee);
+
+        // Assert
+        assertEquals(newEmployee, createdEmployee);
+    }
+
 }
