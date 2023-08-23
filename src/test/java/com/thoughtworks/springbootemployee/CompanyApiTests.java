@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class CompanyApiTests {
 
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
     @Autowired
     private MockMvc mockMvc;
 
@@ -56,6 +59,20 @@ public class CompanyApiTests {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.companyId").value(notNullValue()))
                 .andExpect(jsonPath("$.companyName").value(newCompany.getCompanyName()));
-
     }
+
+    @Test
+    void should_return_company_when_perform_get_company_given_company_id() throws Exception {
+        // Given
+        Company newCompany = new Company(1L,"OOCL");
+        new Company(2L,"COSCO");
+        Company savedCompany = companyRepository.saveCompany(newCompany);
+
+        // When, Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/{companyId}", savedCompany.getCompanyId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyId").value(savedCompany.getCompanyId()))
+                .andExpect(jsonPath("$.companyName").value(savedCompany.getCompanyName()));
+    }
+
 }
