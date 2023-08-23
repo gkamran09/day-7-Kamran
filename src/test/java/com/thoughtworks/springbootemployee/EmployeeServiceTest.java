@@ -67,6 +67,7 @@ public class EmployeeServiceTest {
         EmployeeCreateException employeeCreateException =  assertThrows(EmployeeCreateException.class,() ->{
             employeeService.create(employee);
         });
+        //then
         assertEquals("Employee must be 18-65",employeeCreateException.getMessage());
     }
 
@@ -163,7 +164,7 @@ public class EmployeeServiceTest {
 
         when(mockedEmployeeRepository.listAll()).thenReturn(expectedEmployees);
 
-        // Whe
+        // When
         List<Employee> actualEmployees = employeeService.listAllEmployees();
 
         // Then
