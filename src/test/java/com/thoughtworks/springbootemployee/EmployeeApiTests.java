@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.springbootemployee.controller.Employee;
 import com.thoughtworks.springbootemployee.controller.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,10 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -87,5 +91,21 @@ public class EmployeeApiTests {
                 .andExpect(jsonPath("$[0].employeeGender").value(alice.getEmployeeGender()))
                 .andExpect(jsonPath("$[0].employeeSalary").value(alice.getEmployeeSalary()))
                 .andExpect(jsonPath("$[0].companyId").value(alice.getCompanyId()));
+    }
+    @Test
+    void should_return_the_employee_when_perform_post_employee_given_new_employee_with_JSON_format() throws Exception {
+        // Given
+        Employee newEmployee = new Employee(1L,"Alice", 24, "Female", 9000, 1L);
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.post("/employees/addEmployee")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(newEmployee)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.employeeId").value(notNullValue()))
+                .andExpect(jsonPath("$.employeeName").value(newEmployee.getEmployeeName()))
+                .andExpect(jsonPath("$.employeeAge").value(newEmployee.getEmployeeAge()))
+                .andExpect(jsonPath("$.employeeGender").value(newEmployee.getEmployeeGender()))
+                .andExpect(jsonPath("$.employeeSalary").value(newEmployee.getEmployeeSalary()))
+                .andExpect(jsonPath("$.companyId").value(newEmployee.getCompanyId()));
     }
 }
