@@ -27,7 +27,7 @@ public class EmployeeService {
         employeeRepository.update(matchedEmployee);
     }
 
-    public void update(Long employeeId, Employee updatedEmployee) {
+    public Employee update(Long employeeId, Employee updatedEmployee) {
         Employee existingEmployee = employeeRepository.findEmployeeById(employeeId);
 
         if (!existingEmployee.isActive()) {
@@ -41,6 +41,7 @@ public class EmployeeService {
         existingEmployee.setActive(updatedEmployee.isActive());
 
         employeeRepository.update(existingEmployee);
+        return existingEmployee;
     }
 
     public List<Employee> getEmployeesByPage(Long pageNumber, Long pageSize) {

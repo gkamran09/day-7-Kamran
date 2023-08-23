@@ -204,15 +204,35 @@ public class EmployeeServiceTest {
 
     @Test
     void should_create_employee_when_create_given_valid_employee() {
-        // Arrange
+        // Given
         Employee newEmployee = new Employee(1L, "Alice", 24, "Female", 9000, 1L);
         when(mockedEmployeeRepository.saveEmployee(newEmployee)).thenReturn(newEmployee);
 
-        // Act
+        // When
         Employee createdEmployee = employeeService.create(newEmployee);
 
-        // Assert
+        // Then
         assertEquals(newEmployee, createdEmployee);
+    }
+
+    @Test
+    void should_update_employee_when_update_given_valid_employee() {
+        // Given
+        Employee existingEmployee = new Employee(1L, "Alice", 24, "Female", 9000, 1L);
+        when(mockedEmployeeRepository.findEmployeeById(existingEmployee.getEmployeeId())).thenReturn(existingEmployee);
+
+        Employee updatedEmployee = new Employee(1L, "Alicia", 25, "Female", 9500, 1L);
+
+        // When
+        Employee result = employeeService.update(existingEmployee.getEmployeeId(), updatedEmployee);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(updatedEmployee.getEmployeeName(), result.getEmployeeName());
+        assertEquals(updatedEmployee.getEmployeeAge(), result.getEmployeeAge());
+        assertEquals(updatedEmployee.getEmployeeGender(), result.getEmployeeGender());
+        assertEquals(updatedEmployee.getEmployeeSalary(), result.getEmployeeSalary());
+        assertEquals(updatedEmployee.getCompanyId(), result.getCompanyId());
     }
 
 }
