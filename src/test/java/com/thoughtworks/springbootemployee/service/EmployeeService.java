@@ -5,6 +5,8 @@ import com.thoughtworks.springbootemployee.exception.EmployeeUpdateException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
+import java.util.List;
+
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     public  EmployeeService(EmployeeRepository employeeRepository){
@@ -41,6 +43,7 @@ public class EmployeeService {
         employeeRepository.update(existingEmployee);
     }
 
-
-
+    public List<Employee> getEmployeesByPage(Long pageNumber, Long pageSize) {
+        return employeeRepository.listByPage(pageNumber, pageSize);
+    }
 }

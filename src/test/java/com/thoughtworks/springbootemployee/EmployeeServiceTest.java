@@ -8,6 +8,9 @@ import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -128,4 +131,26 @@ public class EmployeeServiceTest {
     }
 
 
+    @Test
+    void should_return_employees_by_page_when_get_by_page_given_page_number_and_page_size() {
+        // Given
+        Long pageNumber = 2L;
+        Long pageSize = 3L;
+
+        List<Employee> expectedEmployees = Arrays.asList(
+                new Employee(3L, "Alice", 30, "female", 99239, 1L),
+                new Employee(4L, "Lucy", 30, "female", 99239, 2L),
+                new Employee(5L, "Linne", 30, "female", 99239, 2L)
+        );
+
+        when(mockedEmployeeRepository.listByPage(pageNumber, pageSize))
+                .thenReturn(expectedEmployees);
+
+        // When
+        List<Employee> employees = employeeService.getEmployeesByPage(pageNumber, pageSize);
+
+        // Then
+        assertEquals(expectedEmployees.size(), employees.size());
+        assertEquals(expectedEmployees.get(0).getEmployeeName(), employees.get(0).getEmployeeName());
+    }
 }
