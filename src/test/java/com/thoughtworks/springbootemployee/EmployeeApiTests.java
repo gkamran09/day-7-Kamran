@@ -127,4 +127,15 @@ public class EmployeeApiTests {
                 .andExpect(jsonPath("$.employeeSalary").value(updatedEmployee.getEmployeeSalary()))
                 .andExpect(jsonPath("$.companyId").value(updatedEmployee.getCompanyId()));
     }
+
+    @Test
+    void should_return_no_content_when_perform_delete_employee_given_existing_employee_id() throws Exception {
+        //given
+        Employee existingEmployee = employeeRepository.saveEmployee(new Employee(1L, "Alice", 24, "Female", 9000, 1L));
+
+        //when
+        //then
+        mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/deleteEmployees/" + existingEmployee.getEmployeeId()))
+                .andExpect(status().isNoContent());
+    }
 }
