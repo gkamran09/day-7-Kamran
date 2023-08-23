@@ -18,5 +18,11 @@ public class EmployeeService {
         return employeeRepository.saveEmployee(employee);
     }
 
+    public void delete (Long id){
+        Employee matchedEmployee = employeeRepository.findEmployeeById(id);
+        matchedEmployee.setActive(false);
+        employeeRepository.update(matchedEmployee);
+    }
+
 
 }

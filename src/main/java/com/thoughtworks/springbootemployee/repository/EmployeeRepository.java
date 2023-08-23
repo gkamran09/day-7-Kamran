@@ -75,5 +75,18 @@ public class EmployeeRepository {
     public void cleanAll(){
         employees.clear();
     }
+
+    public Employee update(Employee employee) {
+        Employee existingEmployee = findEmployeeById(employee.getEmployeeId());
+
+        existingEmployee.setEmployeeName(employee.getEmployeeName());
+        existingEmployee.setEmployeeAge(employee.getEmployeeAge());
+        existingEmployee.setEmployeeGender(employee.getEmployeeGender());
+        existingEmployee.setEmployeeSalary(employee.getEmployeeSalary());
+        existingEmployee.setCompanyId(employee.getCompanyId());
+        existingEmployee.setActive(employee.isActive());
+
+        return existingEmployee;
+    }
 }
 

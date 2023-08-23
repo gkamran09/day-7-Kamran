@@ -8,8 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class EmployeeServiceTest {
 
@@ -76,6 +75,27 @@ public class EmployeeServiceTest {
 
         // Then
         assertTrue(createEmployee.isActive());
+    }
+
+    @Test
+    void should_set_false_active_when_delete_given_employee_service_and_employee_id() {
+        // Given
+        Employee employee = new Employee(1L, "Lucy", 35, "Female", 5999, 1L);
+        employee.setActive(true);
+
+        when(mockedEmployeeRepository.findEmployeeById(employee.getEmployeeId()))
+                .thenReturn(employee);
+
+        // When
+        employeeService.delete(employee.getEmployeeId());
+
+        // Then
+        assertFalse(employee.isActive());
+        assertEquals("Lucy", employee.getEmployeeName());
+        assertEquals(35, employee.getEmployeeAge());
+        assertEquals("Female", employee.getEmployeeGender());
+        assertEquals(5999, employee.getEmployeeSalary());
+        assertEquals(1L, employee.getCompanyId());
     }
 
 
