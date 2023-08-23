@@ -53,5 +53,9 @@ public class CompanyRepository {
     public void deleteCompany(Long id) {
         companies.removeIf(company -> company.getCompanyId().equals(id));
     }
+
+    public void cleanAll() {
+        companies.clear();
+    }
 }
 
