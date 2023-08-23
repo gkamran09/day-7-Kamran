@@ -46,4 +46,8 @@ public class EmployeeService {
     public List<Employee> getEmployeesByPage(Long pageNumber, Long pageSize) {
         return employeeRepository.listByPage(pageNumber, pageSize);
     }
+
+    public List<Employee> listAllEmployees() {
+        return employeeRepository.listAll();
+    }
 }

@@ -8,6 +8,7 @@ import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -130,7 +131,6 @@ public class EmployeeServiceTest {
         assertEquals("Employee is inactive", exception.getMessage());
     }
 
-
     @Test
     void should_return_employees_by_page_when_get_by_page_given_page_number_and_page_size() {
         // Given
@@ -153,4 +153,21 @@ public class EmployeeServiceTest {
         assertEquals(expectedEmployees.size(), employees.size());
         assertEquals(expectedEmployees.get(0).getEmployeeName(), employees.get(0).getEmployeeName());
     }
+
+    @Test
+    void should_return_list_of_all_employees_when_list_all_employees() {
+        // Given
+        List<Employee> expectedEmployees = new ArrayList<>();
+        expectedEmployees.add(new Employee(1L, "Alice", 24, "Female", 9000, 1L));
+        expectedEmployees.add(new Employee(2L, "Bob", 25, "Male", 8500, 1L));
+
+        when(mockedEmployeeRepository.listAll()).thenReturn(expectedEmployees);
+
+        // When
+        List<Employee> actualEmployees = employeeService.listAllEmployees();
+
+        // Then
+        assertEquals(expectedEmployees, actualEmployees);
+    }
+
 }
