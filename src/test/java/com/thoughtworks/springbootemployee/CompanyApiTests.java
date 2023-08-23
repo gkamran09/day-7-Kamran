@@ -132,8 +132,29 @@ public class CompanyApiTests {
         Company existingCompany = companyRepository.saveCompany(new Company(null, "OOCL"));
         //when
         //then
-        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/deleteEmployees/" + existingCompany.getCompanyId()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/companies/deleteCompanies/" + existingCompany.getCompanyId()))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void should_return_companies_when_perform_list_by_pageNumber_and_pageSize_given__companies_and_pageNumber_and_pageSize() throws Exception {
+        // Given
+        companyRepository.saveCompany(new Company(1L, "OOCL"));
+        companyRepository.saveCompany(new Company(2L, "COSCO"));
+        companyRepository.saveCompany(new Company(3L, "ThoughtWorks"));
+
+        // When
+        int pageNumber = 1;
+        int pageSize = 2;
+
+        // Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies")
+                        .param("pageNumber", String.valueOf(pageNumber))
+                        .param("pageSize", String.valueOf(pageSize)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(pageSize)))
+                .andExpect(jsonPath("$[0].companyId").value(1))
+                .andExpect(jsonPath("$[1].companyId").value(2));
     }
 
 }
