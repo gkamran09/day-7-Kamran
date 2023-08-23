@@ -7,6 +7,8 @@ public class Employee {
     private String employeeGender;
     private Integer employeeSalary;
     private Long companyId;
+    private final Integer MIN_AGE = 18;
+    private final Integer MAX_AGE = 65;
 
     public Employee(Long id, String name, Integer age, String gender, Integer salary, Long companyId) {
         this.id = id;
@@ -64,7 +66,7 @@ public class Employee {
 
 
     public boolean hasInvalidAge() {
-        return getEmployeeAge() < 18;
+        return getEmployeeAge() < MIN_AGE || getEmployeeAge() > MAX_AGE;
     }
 
 }
