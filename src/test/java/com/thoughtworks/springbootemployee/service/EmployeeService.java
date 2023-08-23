@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.exception.EmployeeCreateException;
+import com.thoughtworks.springbootemployee.exception.EmployeeUpdateException;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
@@ -18,11 +19,28 @@ public class EmployeeService {
         return employeeRepository.saveEmployee(employee);
     }
 
-    public void delete (Long id){
+    public void delete(Long id) {
         Employee matchedEmployee = employeeRepository.findEmployeeById(id);
         matchedEmployee.setActive(false);
         employeeRepository.update(matchedEmployee);
     }
+
+    public void update(Long employeeId, Employee updatedEmployee) {
+        Employee existingEmployee = employeeRepository.findEmployeeById(employeeId);
+
+        if (!existingEmployee.isActive()) {
+            throw new EmployeeUpdateException();
+        }
+        existingEmployee.setEmployeeName(updatedEmployee.getEmployeeName());
+        existingEmployee.setEmployeeAge(updatedEmployee.getEmployeeAge());
+        existingEmployee.setEmployeeGender(updatedEmployee.getEmployeeGender());
+        existingEmployee.setEmployeeSalary(updatedEmployee.getEmployeeSalary());
+        existingEmployee.setCompanyId(updatedEmployee.getCompanyId());
+        existingEmployee.setActive(updatedEmployee.isActive());
+
+        employeeRepository.update(existingEmployee);
+    }
+
 
 
 }
