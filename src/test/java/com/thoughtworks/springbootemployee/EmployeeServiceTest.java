@@ -183,4 +183,22 @@ public class EmployeeServiceTest {
         // Then
         assertEquals(expectedEmployee, actualEmployee);
     }
+
+    @Test
+    void should_return_list_of_employees_by_gender_when_find_employees_by_gender_given_valid_gender() {
+        // Given
+        String gender = "Female";
+        List<Employee> expectedEmployees = new ArrayList<>();
+        expectedEmployees.add(new Employee(1L, "Alice", 24, "Female", 9000, 1L));
+        expectedEmployees.add(new Employee(2L, "Eve", 28, "Female", 8000, 1L));
+
+        when(mockedEmployeeRepository.findEmployeeByGender(gender)).thenReturn(expectedEmployees);
+
+        // When
+        List<Employee> actualEmployees = employeeService.findEmployeesByGender(gender);
+
+        // Then
+        assertEquals(expectedEmployees.size(), actualEmployees.size());
+
+    }
 }

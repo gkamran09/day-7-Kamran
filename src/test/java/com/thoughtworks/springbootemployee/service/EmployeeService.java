@@ -54,4 +54,8 @@ public class EmployeeService {
     public Employee getEmployeeById(Long id) {
         return employeeRepository.findEmployeeById(id);
     }
+
+    public List<Employee> findEmployeesByGender(String gender) {
+        return employeeRepository.findEmployeeByGender(gender);
+    }
 }
