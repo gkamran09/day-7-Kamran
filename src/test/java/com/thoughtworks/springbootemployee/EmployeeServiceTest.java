@@ -235,4 +235,18 @@ public class EmployeeServiceTest {
         assertEquals(updatedEmployee.getCompanyId(), result.getCompanyId());
     }
 
+    @Test
+    void should_set_employee_inactive_when_delete_given_valid_employee_id() {
+        // Given
+        Employee existingEmployee = new Employee(1L, "Alice", 24, "Female", 9000, 1L);
+        when(mockedEmployeeRepository.findEmployeeById(existingEmployee.getEmployeeId())).thenReturn(existingEmployee);
+
+        // When
+        employeeService.delete(existingEmployee.getEmployeeId());
+
+        // Then
+        assertFalse(existingEmployee.isActive());
+        verify(mockedEmployeeRepository).update(existingEmployee);
+    }
+
 }
