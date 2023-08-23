@@ -50,4 +50,8 @@ public class EmployeeService {
     public List<Employee> listAllEmployees() {
         return employeeRepository.listAll();
     }
+
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findEmployeeById(id);
+    }
 }

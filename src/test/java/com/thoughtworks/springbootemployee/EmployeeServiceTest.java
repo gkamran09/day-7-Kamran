@@ -163,11 +163,24 @@ public class EmployeeServiceTest {
 
         when(mockedEmployeeRepository.listAll()).thenReturn(expectedEmployees);
 
-        // When
+        // Whe
         List<Employee> actualEmployees = employeeService.listAllEmployees();
 
         // Then
         assertEquals(expectedEmployees, actualEmployees);
     }
 
+    @Test
+    void should_return_employee_when_get_employee_given_employee_id() {
+        // Given
+        Long employeeId = 1L;
+        Employee expectedEmployee = new Employee(employeeId, "Alice", 25, "Female", 10000, 1L);
+        when(mockedEmployeeRepository.findEmployeeById(employeeId)).thenReturn(expectedEmployee);
+
+        // When
+        Employee actualEmployee = employeeService.getEmployeeById(employeeId);
+
+        // Then
+        assertEquals(expectedEmployee, actualEmployee);
+    }
 }
