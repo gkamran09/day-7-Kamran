@@ -41,11 +41,10 @@ public class EmployeeRepository {
 
     public Employee saveEmployee(Employee employee) {
         Long id = generateNextId();
+        employee.setId(id);
+        employees.add(employee);
 
-        Employee employeeToBeCreated = new Employee(id, employee.getEmployeeName(), employee.getEmployeeAge(), employee.getEmployeeGender(), employee.getEmployeeSalary(), employee.getCompanyId());
-        employees.add(employeeToBeCreated);
-
-        return employeeToBeCreated;
+        return employee;
     }
 
     private Long generateNextId() {
@@ -70,6 +69,9 @@ public class EmployeeRepository {
         return employees.stream()
                 .filter(employee -> employee.getCompanyId().equals(companyId))
                 .collect(Collectors.toList());
+    }
+    public void cleanAll(){
+        employees.clear();
     }
 }
 
