@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -73,6 +74,31 @@ public class CompanyApiTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.companyId").value(savedCompany.getCompanyId()))
                 .andExpect(jsonPath("$.companyName").value(savedCompany.getCompanyName()));
+    }
+
+    @Test
+    void should_return_list_of_employees_in_company_when_perform_get_employees_by_company_id() throws Exception {
+        // Given
+        Company company = companyRepository.saveCompany(new Company(1L, "OOCL"));
+        Employee employee1 = employeeRepository.findEmployeeById(1L);
+        Employee employee2 = employeeRepository.findEmployeeById(2L);
+
+        // When, Then
+        mockMvc.perform(MockMvcRequestBuilders.get("/companies/" + company.getCompanyId() + "/employees"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].employeeId").value(employee1.getEmployeeId()))
+                .andExpect(jsonPath("$[0].employeeName").value(employee1.getEmployeeName()))
+                .andExpect(jsonPath("$[0].employeeAge").value(employee1.getEmployeeAge()))
+                .andExpect(jsonPath("$[0].employeeGender").value(employee1.getEmployeeGender()))
+                .andExpect(jsonPath("$[0].employeeSalary").value(employee1.getEmployeeSalary()))
+                .andExpect(jsonPath("$[0].companyId").value(employee1.getCompanyId()))
+                .andExpect(jsonPath("$[1].employeeId").value(employee2.getEmployeeId()))
+                .andExpect(jsonPath("$[1].employeeName").value(employee2.getEmployeeName()))
+                .andExpect(jsonPath("$[1].employeeAge").value(employee2.getEmployeeAge()))
+                .andExpect(jsonPath("$[1].employeeGender").value(employee2.getEmployeeGender()))
+                .andExpect(jsonPath("$[1].employeeSalary").value(employee2.getEmployeeSalary()))
+                .andExpect(jsonPath("$[1].companyId").value(employee2.getCompanyId()));
     }
 
 }
