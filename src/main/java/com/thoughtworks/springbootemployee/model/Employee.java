@@ -1,4 +1,4 @@
-package com.thoughtworks.springbootemployee.controller;
+package com.thoughtworks.springbootemployee.model;
 
 public class Employee {
     private Long id;
@@ -61,5 +61,10 @@ public class Employee {
     }
 
     public void setId(Long id) {this.id = id;}
+
+
+    public boolean hasInvalidAge() {
+        return getEmployeeAge() < 18;
+    }
 
 }

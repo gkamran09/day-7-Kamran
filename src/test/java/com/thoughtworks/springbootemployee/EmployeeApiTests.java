@@ -1,8 +1,8 @@
 package com.thoughtworks.springbootemployee;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.thoughtworks.springbootemployee.controller.Employee;
-import com.thoughtworks.springbootemployee.controller.EmployeeRepository;
+import com.thoughtworks.springbootemployee.model.Employee;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,4 +138,25 @@ public class EmployeeApiTests {
         mockMvcClient.perform(MockMvcRequestBuilders.delete("/employees/deleteEmployees/" + existingEmployee.getEmployeeId()))
                 .andExpect(status().isNoContent());
     }
-}
+
+    @Test
+    void should_return_paginated_employees_when_perform_get_employees_with_pagination() throws Exception {
+        // Given
+        employeeRepository.saveEmployee(new Employee(1L, "Alice", 24, "Female", 9000, 1L));
+        employeeRepository.saveEmployee(new Employee(2L, "Bob", 25, "Male", 8500, 1L));
+        employeeRepository.saveEmployee(new Employee(3L, "Charlie", 28, "Male", 9500, 1L));
+
+        // When,
+        int pageNumber = 1;
+        int pageSize = 2;
+        //Then
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees")
+                        .param("pageNumber", String.valueOf(pageNumber))
+                        .param("pageSize", String.valueOf(pageSize)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(pageSize)))
+                .andExpect(jsonPath("$[0].employeeId").value(1))
+                .andExpect(jsonPath("$[1].employeeId").value(2));
+    }
+
+    }
