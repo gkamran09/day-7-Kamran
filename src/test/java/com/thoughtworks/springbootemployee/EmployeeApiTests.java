@@ -108,4 +108,23 @@ public class EmployeeApiTests {
                 .andExpect(jsonPath("$.employeeSalary").value(newEmployee.getEmployeeSalary()))
                 .andExpect(jsonPath("$.companyId").value(newEmployee.getCompanyId()));
     }
+
+    @Test
+    void should_return_updated_employee_when_perform_put_employee_given_existing_employee_id_and_updated_data() throws Exception {
+        // Given
+        Employee existingEmployee = employeeRepository.saveEmployee(new Employee(1L, "Alice", 24, "Female", 9000, 1L));
+        Employee updatedEmployee = new Employee(existingEmployee.getEmployeeId(), "Juliet", 25, "Female", 9500, 1L);
+
+        // When, Then
+        mockMvcClient.perform(MockMvcRequestBuilders.put("/employees/updateEmployees/" + existingEmployee.getEmployeeId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(updatedEmployee)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.employeeId").value(existingEmployee.getEmployeeId()))
+                .andExpect(jsonPath("$.employeeName").value(updatedEmployee.getEmployeeName()))
+                .andExpect(jsonPath("$.employeeAge").value(updatedEmployee.getEmployeeAge()))
+                .andExpect(jsonPath("$.employeeGender").value(updatedEmployee.getEmployeeGender()))
+                .andExpect(jsonPath("$.employeeSalary").value(updatedEmployee.getEmployeeSalary()))
+                .andExpect(jsonPath("$.companyId").value(updatedEmployee.getCompanyId()));
+    }
 }
