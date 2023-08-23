@@ -126,4 +126,14 @@ public class CompanyApiTests {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void should_return_no_content_when_perform_delete_company_given_existing_company_id() throws Exception {
+        //given
+        Company existingCompany = companyRepository.saveCompany(new Company(null, "OOCL"));
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/deleteEmployees/" + existingCompany.getCompanyId()))
+                .andExpect(status().isNoContent());
+    }
+
 }
