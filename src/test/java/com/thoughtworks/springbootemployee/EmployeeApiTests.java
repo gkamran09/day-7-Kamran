@@ -70,4 +70,22 @@ public class EmployeeApiTests {
         mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/" + notExistingEmployeeId))
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    void should_return_list_of_employee_by_given_gender_when_perform_get_employee_given_gender() throws Exception{
+        //Given
+        Employee alice = employeeRepository.saveEmployee(new Employee(1L,"Alice", 24, "Female", 9000,1L));
+        Employee bob = employeeRepository.saveEmployee(new Employee(2L,"Bob", 24, "Male", 9000,1L));
+
+        //when
+        mockMvcClient.perform(MockMvcRequestBuilders.get("/employees/").param("gender","Female"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$[0].employeeId").value(alice.getEmployeeId()))
+                .andExpect(jsonPath("$[0].employeeName").value(alice.getEmployeeName()))
+                .andExpect(jsonPath("$[0].employeeAge").value(alice.getEmployeeAge()))
+                .andExpect(jsonPath("$[0].employeeGender").value(alice.getEmployeeGender()))
+                .andExpect(jsonPath("$[0].employeeSalary").value(alice.getEmployeeSalary()))
+                .andExpect(jsonPath("$[0].companyId").value(alice.getCompanyId()));
+    }
 }
