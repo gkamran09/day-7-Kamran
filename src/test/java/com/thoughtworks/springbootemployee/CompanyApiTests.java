@@ -101,4 +101,19 @@ public class CompanyApiTests {
                 .andExpect(jsonPath("$[1].companyId").value(employee2.getCompanyId()));
     }
 
+    @Test
+    void should_update_company_name_when_perform_put_company_given_existing_company_id_and_updated_data() throws Exception {
+        // Given
+        Company existingCompany = companyRepository.saveCompany(new Company(null, "OOCL"));
+        Company updatedCompany = new Company(existingCompany.getCompanyId(), "ThoughtWorks");
+
+        // When, Then
+        mockMvc.perform(MockMvcRequestBuilders.put("/companies/updateCompanies/" + existingCompany.getCompanyId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(updatedCompany)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.companyId").value(existingCompany.getCompanyId()))
+                .andExpect(jsonPath("$.companyName").value(updatedCompany.getCompanyName()));
+    }
+
 }
