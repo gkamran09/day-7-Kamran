@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 public class EmployeeController {
 
+    //TODO: should use the Employee service instead of the repository class
     @Autowired
     private EmployeeRepository employeeRepository;
 

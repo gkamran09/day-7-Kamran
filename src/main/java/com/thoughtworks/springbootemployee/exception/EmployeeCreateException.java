@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.exception;
 
+//TODO: consider having ResponseStatus
 public class EmployeeCreateException extends RuntimeException{
 
     public EmployeeCreateException (){

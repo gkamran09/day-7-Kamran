@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 public class CompanyController {
 
+    //TODO: should have service layer for the company service
     @Autowired
     private CompanyRepository companyRepository;
     @Autowired

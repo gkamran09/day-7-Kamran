@@ -6,7 +6,8 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 
 import java.util.List;
-
+//TODO: service class is under the test package
+//TODO: should have the annotation of @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     public  EmployeeService(EmployeeRepository employeeRepository){
